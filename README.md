@@ -1,7 +1,7 @@
 # RevealGen PRO 🚀
 ### Professional Text Motion Generator for Webflow
 
-[![RevealGen PRO Banner](https://raw.githubusercontent.com/nestorwwh-hue/revealgen-pro/master/public/preview-image.png)](https://revealgen-pro.vercel.app/)
+[![RevealGen PRO Banner](public/preview-image.png)](https://revealgen-pro.vercel.app/)
 
 ## 🔗 [Live Demo](https://revealgen-pro.vercel.app/)
 
@@ -31,7 +31,7 @@ RevealGen PRO is a powerful, web-based tool designed to create high-performance 
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/revealgen-pro.git
+   git clone https://github.com/nestorwwh-hue/revealgen-pro.git
    ```
 
 2. **Install dependencies**:
