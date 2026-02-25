@@ -8,23 +8,46 @@ export const generateWebflowCode = (types: EffectType[], props: EffectProperties
 
   const splitScript = `
   const splitText = (el, mode) => {
-    const text = el.innerText;
+    const splitParts = (text) => {
+      if (mode === 'char') return text.split('');
+      if (mode === 'word') return text.split(/(\\s+)/);
+      return [text];
+    };
+
+    const makeItem = (part) => {
+      const s = document.createElement('span');
+      s.textContent = part === ' ' ? '\\u00A0' : part;
+      s.className = '${props.className} rvl-item';
+      s.style.display = 'inline-block';
+      return s;
+    };
+
+    const processNode = (node) => {
+      const frag = document.createDocumentFragment();
+      if (node.nodeType === 3) {
+        // Plain text node — split directly into rvl-item spans
+        splitParts(node.textContent).forEach(part => {
+          if (!part) return;
+          frag.appendChild(makeItem(part));
+        });
+      } else if (node.nodeType === 1) {
+        // Element node (e.g. <span class="text-span-4">) — shallow-clone it
+        // for each part so its classes/inline-styles are preserved on every piece
+        splitParts(node.textContent).forEach(part => {
+          if (!part) return;
+          const wrapper = node.cloneNode(false); // keeps classes & inline styles
+          wrapper.style.display = 'inline-block';
+          wrapper.appendChild(makeItem(part));
+          frag.appendChild(wrapper);
+        });
+      }
+      return frag;
+    };
+
+    // Snapshot children BEFORE clearing innerHTML
+    const children = Array.from(el.childNodes).map(n => n.cloneNode(true));
     el.innerHTML = '';
-    el.setAttribute('data-rvl-text', text);
-    
-    let parts;
-    if (mode === 'char') parts = text.split('');
-    else if (mode === 'word') parts = text.split(/(\\s+)/);
-    else parts = [text];
-    
-    parts.forEach(part => {
-      const span = document.createElement('span');
-      span.innerText = part === ' ' ? '\\u00A0' : part;
-      span.className = '${props.className} rvl-item';
-      span.style.display = 'inline-block';
-      if (part === '\\n') span.style.display = 'block';
-      el.appendChild(span);
-    });
+    children.forEach(child => el.appendChild(processNode(child)));
   };`;
 
   // Merge GSAP properties
