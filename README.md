@@ -1,9 +1,11 @@
 # RevealGen PRO 🚀
 ### Professional Text Motion Generator for Webflow
 
-RevealGen PRO is a powerful, web-based tool designed to create high-performance text revelation animations. It allows designers and developers to stack multiple effects (Fade, Slide, Blur, Scale, 3D Flip, Scramble, etc.) and generate clean, production-ready code for Webflow or any web project.
+[![RevealGen PRO Banner](https://raw.githubusercontent.com/nestorwwh-hue/revealgen-pro/master/public/preview-image.png)](https://revealgen-pro.vercel.app/)
 
-![RevealGen Interface](public/preview-image.png) *(Note: Add a real screenshot here after hosting)*
+## 🔗 [Live Demo](https://revealgen-pro.vercel.app/)
+
+RevealGen PRO is a powerful, web-based tool designed to create high-performance text revelation animations. It allows designers and developers to stack multiple effects (Fade, Slide, Blur, Scale, 3D Flip, Scramble, etc.) and generate clean, production-ready code for Webflow or any web project.
 
 ## ✨ Features
 
