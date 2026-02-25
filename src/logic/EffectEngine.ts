@@ -15,6 +15,7 @@ export interface EffectProperties {
   staggerOrder: StaggerOrder;
   fontFamily: string;
   useGSAP: boolean;
+  targetSelector: string;
 }
 
 export const defaultProperties: EffectProperties = {
@@ -29,6 +30,7 @@ export const defaultProperties: EffectProperties = {
   staggerOrder: 'asc',
   fontFamily: 'Inter',
   useGSAP: true,
+  targetSelector: '',
 };
 
 export const getEffectCSS = (types: EffectType[], props: EffectProperties) => {
@@ -119,11 +121,14 @@ export const getEffectJS = (types: EffectType[], props: EffectProperties) => {
   `;
 
   const baseClass = className.split(' ')[0];
+  const resolvedSelector = props.targetSelector && props.targetSelector.trim()
+    ? props.targetSelector.trim()
+    : `.${baseClass}-wrapper`;
 
   return `
 (function() {
   ${hasScramble ? scrambleScript : ''}
-  const elements = document.querySelectorAll('.${baseClass}-wrapper');
+  const elements = document.querySelectorAll('${resolvedSelector}');
   if (!elements.length) return;
 
   const animateElements = (container) => {

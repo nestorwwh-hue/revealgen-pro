@@ -55,6 +55,9 @@ export const generateWebflowCode = (types: EffectType[], props: EffectProperties
   };`;
 
   const baseClass = props.className.split(' ')[0];
+  const resolvedSelector = props.targetSelector.trim()
+    ? props.targetSelector.trim()
+    : `.${baseClass}-wrapper`;
 
   return `
 <!-- RevealGen PRO (Combined Effects): ${types.join(', ')} -->
@@ -68,7 +71,7 @@ ${css}
 document.addEventListener('DOMContentLoaded', () => {
   ${splitScript}
   
-  const wrappers = document.querySelectorAll('.${baseClass}-wrapper');
+  const wrappers = document.querySelectorAll('${resolvedSelector}');
   wrappers.forEach(w => splitText(w, "${props.splitMode}"));
 
   ${props.useGSAP ? gsapAnimation : ''}

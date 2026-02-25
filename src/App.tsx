@@ -285,9 +285,21 @@ const App: React.FC = () => {
                                 </section>
 
                                 <section>
-                                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3 block">Webflow Target Class</label>
+                                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2 block">Webflow Target Selector</label>
+                                    <input
+                                        type="text"
+                                        value={props.targetSelector}
+                                        onChange={(e) => setProps({ ...props, targetSelector: e.target.value })}
+                                        className="w-full bg-slate-900 border border-white/10 rounded-xl p-3 text-sm focus:ring-2 focus:ring-primary-500 outline-none placeholder:text-slate-700"
+                                        placeholder=".text-block-4, .text-span-4"
+                                    />
+                                    <p className="text-[9px] text-slate-600 mt-2 italic">* Paste the Webflow class(es) to animate (e.g. <code>.text-block-13</code>). Supports any valid CSS selector. Leave blank to use the auto-generated wrapper class below.</p>
+                                </section>
+
+                                <section>
+                                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3 block">Span Class Name</label>
                                     <input type="text" value={props.className} onChange={(e) => setProps({ ...props, className: e.target.value })} className="w-full bg-slate-900 border border-white/10 rounded-xl p-3 text-sm focus:ring-2 focus:ring-primary-500 outline-none placeholder:text-slate-700" placeholder="e.g. hero-reveal custom-style" />
-                                    <p className="text-[9px] text-slate-600 mt-2 italic">* Use spaces to add multiple classes. All classes will be applied to each letter/word.</p>
+                                    <p className="text-[9px] text-slate-600 mt-2 italic">* Class applied to each animated span (letter/word). Use spaces for multiple classes.</p>
                                 </section>
 
                                 <section>
