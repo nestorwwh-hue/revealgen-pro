@@ -40,7 +40,7 @@ export const getEffectCSS = (types: EffectType[], props: EffectProperties) => {
   let filter = '';
   let opacity = '0';
   let clipPath = '';
-  let transition = `opacity ${duration}s ${easing}, transform ${duration}s ${easing}, filter ${duration}s ${easing}, clip-path ${duration}s ${easing}`;
+  let transition = props.useGSAP ? 'none' : `opacity ${duration}s ${easing}, transform ${duration}s ${easing}, filter ${duration}s ${easing}, clip-path ${duration}s ${easing}`;
 
   types.forEach(type => {
     switch (type) {
@@ -72,10 +72,10 @@ ${selector} {
 }
 
 ${selector}.is-visible {
-  opacity: 1 !important;
-  transform: translate(0, 0) rotateX(0) rotateY(0) scale(1) !important;
-  filter: blur(0) !important;
-  ${clipPath ? 'clip-path: inset(0 0 0 0) !important;' : ''}
+  opacity: 1;
+  transform: translate(0, 0) rotateX(0) rotateY(0) scale(1);
+  filter: blur(0);
+  ${clipPath ? 'clip-path: inset(0 0 0 0);' : ''}
 }
 `;
 };
@@ -133,6 +133,13 @@ export const getEffectJS = (types: EffectType[], props: EffectProperties) => {
 
   const animateElements = (container) => {
     if (container.getAttribute('data-rvl-animated') === 'true' && "${trigger}" === 'scroll') return;
+    
+    // If GSAP is enabled and available, use it instead of the manual timer
+    if (window.gsap && ${props.useGSAP}) {
+      animateGSAP(container);
+      return;
+    }
+
     container.setAttribute('data-rvl-animated', 'true');
 
     ${getOrderScript}
